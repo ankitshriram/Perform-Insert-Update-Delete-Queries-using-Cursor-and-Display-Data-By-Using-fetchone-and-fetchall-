@@ -1,0 +1,1 @@
+# Perform-Insert-Update-Delete-Queries-using-Cursor-and-Display-Data-By-Using-fetchone-and-fetchall-
