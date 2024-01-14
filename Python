@@ -1,0 +1,35 @@
+import mysql.connector
+
+cnx = mysql.connector.connect(user='root', password='cricket16', host='localhost')
+# Create a cursor object
+cursor = cnx.cursor()
+
+
+# Use the new database
+cursor.execute("USE TestDB1")
+
+cursor.execute("CREATE TABLE TestTable (ID INT PRIMARY KEY, Name VARCHAR(40))")
+cursor.execute("INSERT INTO TestTable (ID, Name) VALUES (1, 'Name1')")
+print(f"Inserted {cursor.rowcount} row(s)")
+
+cursor.execute("UPDATE TestTable SET Name = 'UpdatedName' WHERE ID = 1")
+print(f"Updated {cursor.rowcount} row(s)")
+
+cursor.execute("DELETE FROM TestTable WHERE ID = 1")
+print(f"Deleted {cursor.rowcount} row(s)")
+cursor.execute("INSERT INTO TestTable (ID, Name) VALUES (2, 'Name2'), (3, 'Name3')")
+cnx.commit()
+
+cursor.execute("SELECT * FROM TestTable")
+row = cursor.fetchone()
+while row is not None:
+    print(row)
+    row = cursor.fetchone()
+
+cursor.execute("SELECT * FROM TestTable")
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+cursor.close()
+cnx.close()
